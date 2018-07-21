@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class SaleReport {
     @Id
     @Column(name="order_id")
-    private String orderID;
+    private int orderID;
     @Column(name="cust_name")
     private String custName;
     @Column(name="cust_phone")
@@ -30,8 +30,8 @@ public class SaleReport {
     @Column(name="pro_totalprice")
     private double proTotalPrice;
     public SaleReport(){};
-    public SaleReport(String orderID, String custName, String custPhone, String custAddress, String proID, String proName, double proPrice, double proQty, double proDis, double proTotalPrice) {
-        this.orderID = orderID;
+    public SaleReport( String custName, String custPhone, String custAddress, String proID, String proName, double proPrice, double proQty, double proDis, double proTotalPrice) {
+     //   this.orderID = orderID;
         this.custName = custName;
         this.custPhone = custPhone;
         this.custAddress = custAddress;
@@ -43,7 +43,7 @@ public class SaleReport {
         this.proTotalPrice = proTotalPrice;
     }
 
-    public String getOrderID() {
+    public int getOrderID() {
         return orderID;
     }
 
@@ -81,5 +81,21 @@ public class SaleReport {
 
     public double getProTotalPrice() {
         return proTotalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "SaleReport{" +
+                "orderID='" + orderID + '\'' +
+                ", custName='" + custName + '\'' +
+                ", custPhone='" + custPhone + '\'' +
+                ", custAddress='" + custAddress + '\'' +
+                ", proID='" + proID + '\'' +
+                ", proName='" + proName + '\'' +
+                ", proPrice=" + proPrice +
+                ", proQty=" + proQty +
+                ", proDis=" + proDis +
+                ", proTotalPrice=" + proTotalPrice +
+                '}';
     }
 }

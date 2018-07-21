@@ -52,6 +52,7 @@ public class PurchaseUI extends JFrame implements ActionListener{
 
     double totaldiscount;
     double totalprice;
+
     int orderID=1;
     List<Purchase> purchasedItems = new ArrayList<Purchase>() ;
         //Payment
@@ -191,6 +192,7 @@ public class PurchaseUI extends JFrame implements ActionListener{
 
 
         for( Product p : getProducts()){
+            System.out.println(p);
             tbProduct.addRow(new Object[]{p.getId(),p.getName(),p.getDes(),p.getPrice(),p.getQtyInStock()});
         }
 
@@ -467,6 +469,7 @@ public class PurchaseUI extends JFrame implements ActionListener{
 
 
             for( SaleReport s : getSaleReport()){
+                System.out.println(s);
                 tbProduct.addRow(new Object[]{s.getOrderID(),s.getCustName(),s.getCustPhone(),s.getCustAddress(),s.getProID(),s.getProName(),
                 s.getProPrice(),s.getProQty(),s.getProDis(),s.getProTotalPrice()});
             }
@@ -485,12 +488,13 @@ public class PurchaseUI extends JFrame implements ActionListener{
         Session sessionObj = factory.getCurrentSession();
         try {
             sessionObj.beginTransaction();
-            tmp =(ArrayList) sessionObj.createQuery("from SaleReport").getResultList();
+            tmp = sessionObj.createQuery("from SaleReport").getResultList();
             sessionObj.getTransaction().commit();
         }
         finally {
             factory.close();
         }
+
         return tmp;
 
     }
@@ -717,7 +721,7 @@ public class PurchaseUI extends JFrame implements ActionListener{
 
                 for(Purchase p: purchasedItems){
 
-                    SaleReport saleReport = new SaleReport(p.getOrderNo(),custName,custPhone,custAddress,p.getProduct().getId(),p.getProduct().getName(),
+                    SaleReport saleReport = new SaleReport(custName,custPhone,custAddress,p.getProduct().getId(),p.getProduct().getName(),
                             p.getProduct().getPrice(),p.getQty(),p.getDiscount(),p.getPrice());
                     SessionFactory factory = new Configuration()
                             .configure("hibernate.cfg.xml")
@@ -756,9 +760,10 @@ public class PurchaseUI extends JFrame implements ActionListener{
                     index--;
 
                 }
+
                 txtTotalPrie.setText("");
                 txtDiscount.setText("");
-
+                orderID=1;
             }
 
         }
